@@ -78,7 +78,7 @@ flags.DEFINE_string(
 FLAGS = flags.FLAGS
 
 
-def main(wav_file,tfrecord_file):
+def main(wav_file,npz_path):
   # In this simple example, we run the examples from a single audio file through
   # the model. If none is provided, we generate a synthetic input.
   #if FLAGS.wav_file:
@@ -126,37 +126,7 @@ def main(wav_file,tfrecord_file):
       print('NO')
       return 0
 
-    np.savez_compressed(tfrecord_file,postprocessed_batch) 
-
-
-    # Write the postprocessed embeddings as a SequenceExample, in a similar
-    # format as the features released in AudioSet. Each row of the batch of
-    # embeddings corresponds to roughly a second of audio (96 10ms frames), and
-    # the rows are written as a sequence of bytes-valued features, where each
-    # feature value contains the 128 bytes of the whitened quantized embedding.
-    """
-    seq_example = tf.train.SequenceExample(
-        feature_lists=tf.train.FeatureLists(
-            feature_list={
-                vggish_params.AUDIO_EMBEDDING_FEATURE_NAME:
-                    tf.train.FeatureList(
-                        feature=[
-                            tf.train.Feature(
-                                bytes_list=tf.train.BytesList(
-                                    value=[embedding.tobytes()]))
-                            for embedding in postprocessed_batch
-                        ]
-                    )
-            }
-        )
-    )
-    print(seq_example)
-    if writer:
-      writer.write(seq_example.SerializeToString())
-
-  if writer:
-    writer.close()
-  """
+    np.savez_compressed(npz_path,postprocessed_batch) 
   return 1
 
 if __name__ == '__main__':
