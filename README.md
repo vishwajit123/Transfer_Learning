@@ -38,4 +38,6 @@ and will save the 128X4 embeddings generated as an npz file in the features_npz 
 Now run <i> python train_dnn.py </i> to train a simple 3 layer network for classifying the npz features.<br>
 You can run <i> python test_dnn.py </i> for testing the model. This repo has trained weights and the model description in model.h5 and model.json files, respectively. </p>
 
-
+contributors: 
+@codeass
+@vishwajit123
